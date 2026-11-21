@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Typeface;
 
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -90,10 +91,16 @@ public class MainActivity extends AppCompatActivity {
         mapMode = showMap;
         orderCards.setVisibility(showMap ? View.GONE : View.VISIBLE);
         mapContent.setVisibility(showMap ? View.VISIBLE : View.GONE);
-        findViewById(R.id.listTab).setBackgroundResource(showMap
+        TextView listTab = findViewById(R.id.listTab);
+        TextView mapTab = findViewById(R.id.mapTab);
+        listTab.setBackgroundResource(showMap
                 ? R.drawable.segmented_unselected : R.drawable.segmented_selected);
-        findViewById(R.id.mapTab).setBackgroundResource(showMap
+        mapTab.setBackgroundResource(showMap
                 ? R.drawable.segmented_selected : R.drawable.segmented_unselected);
+        listTab.setTextColor(getColor(showMap ? R.color.nav_inactive : R.color.nav_active));
+        mapTab.setTextColor(getColor(showMap ? R.color.nav_active : R.color.nav_inactive));
+        listTab.setTypeface(null, showMap ? Typeface.NORMAL : Typeface.BOLD);
+        mapTab.setTypeface(null, showMap ? Typeface.BOLD : Typeface.NORMAL);
     }
 
     private void openOrderDetails(int orderIndex) {
