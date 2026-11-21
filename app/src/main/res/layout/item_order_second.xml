@@ -10,4 +10,8 @@
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="18 ноября" android:textColor="#85858D" android:textSize="14sp" />
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Дизайнер для проекта" android:textColor="#171717" android:textSize="22sp" android:textStyle="bold" />
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Нужно подготовить макеты и иллюстрации. Удалённая работа · Минск" android:textColor="#29292D" android:textSize="16sp" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="Выплата" android:textColor="#85858D" android:textSize="14sp" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Не указана" android:textColor="#171717" android:textSize="18sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Адрес" android:textColor="#85858D" android:textSize="14sp" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Дистанционно · Минск" android:textColor="#505057" android:textSize="16sp" />
 </LinearLayout>
