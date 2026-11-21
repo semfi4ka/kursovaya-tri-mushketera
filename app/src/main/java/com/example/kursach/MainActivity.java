@@ -163,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Отмена", null)
                 .create();
         dialog.setOnShowListener(ignored -> {
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_background);
+            }
             dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
                 String minText = minPriceInput.getText().toString().trim();
                 String maxText = maxPriceInput.getText().toString().trim();
