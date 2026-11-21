@@ -5,7 +5,19 @@
     android:layout_marginBottom="14dp" android:background="@drawable/rounded_white"
     android:orientation="vertical" android:padding="18dp">
     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="16 ноября" android:textColor="#85858D" android:textSize="14sp" />
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Перевести текст\nдо 80 Br" android:textColor="#171717" android:textSize="22sp" android:textStyle="bold" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Перевести текст" android:textColor="#171717" android:textSize="22sp" android:textStyle="bold" />
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Нужен перевод инструкции с английского на русский, около 6 страниц." android:textColor="#29292D" android:textSize="16sp" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="Дистанционно · Минск" android:textColor="#505057" android:textSize="16sp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rounded_white"
+        android:clipToOutline="true"
+        android:contentDescription="Перо и текст в словаре"
+        android:scaleType="centerCrop"
+        android:src="@drawable/translation_dictionary" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="Выплата" android:textColor="#85858D" android:textSize="14sp" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="80 Br" android:textColor="#171717" android:textSize="18sp" android:textStyle="bold" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:text="Адрес" android:textColor="#85858D" android:textSize="14sp" />
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="Дистанционно · Минск" android:textColor="#505057" android:textSize="16sp" />
 </LinearLayout>
