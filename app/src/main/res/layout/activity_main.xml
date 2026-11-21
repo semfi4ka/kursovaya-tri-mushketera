@@ -33,6 +33,7 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="18dp">
                 <TextView
+                    android:id="@+id/listTab"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_weight="1"
@@ -43,9 +44,11 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
                 <TextView
+                    android:id="@+id/mapTab"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
                     android:layout_weight="1"
+                    android:background="@drawable/segmented_unselected"
                     android:gravity="center"
                     android:text="Карта"
                     android:textColor="#77777F"
@@ -120,6 +123,39 @@
                 <include layout="@layout/item_order_fifth" />
                 <include layout="@layout/item_order_sixth" />
             </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/mapContent"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/map_background"
+                android:visibility="gone">
+
+                <View android:layout_width="440dp" android:layout_height="18dp" android:layout_gravity="center" android:background="#FFFFFF" android:rotation="-22" />
+                <View android:layout_width="440dp" android:layout_height="14dp" android:layout_gravity="center" android:background="#FFFFFF" android:rotation="35" />
+                <View android:layout_width="18dp" android:layout_height="480dp" android:layout_gravity="center" android:background="#FFFFFF" android:rotation="18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/rounded_white"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="8dp"
+                    android:text="Демонстрационная карта · заказы"
+                    android:textColor="#505057"
+                    android:textSize="14sp" />
+
+                <TextView android:id="@+id/mapMarker0" style="@style/MapMarker" android:layout_gravity="top|start" android:layout_marginStart="34dp" android:layout_marginTop="108dp" android:text="300 Br" />
+                <TextView android:id="@+id/mapMarker1" style="@style/MapMarker" android:layout_gravity="top|end" android:layout_marginTop="178dp" android:layout_marginEnd="28dp" android:text="Дизайн" />
+                <TextView android:id="@+id/mapMarker2" style="@style/MapMarker" android:layout_gravity="center|start" android:layout_marginStart="54dp" android:text="450 Br" />
+                <TextView android:id="@+id/mapMarker3" style="@style/MapMarker" android:layout_gravity="center|end" android:layout_marginEnd="36dp" android:text="80 Br" />
+                <TextView android:id="@+id/mapMarker4" style="@style/MapMarker" android:layout_gravity="bottom|start" android:layout_marginStart="42dp" android:layout_marginBottom="88dp" android:text="120 Br" />
+                <TextView android:id="@+id/mapMarker5" style="@style/MapMarker" android:layout_gravity="bottom|end" android:layout_marginEnd="32dp" android:layout_marginBottom="138dp" android:text="200 Br" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/emptyState"

@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchInput;
     private LinearLayout orderCards;
     private View emptyState;
+    private View mapContent;
+    private View[] mapMarkers;
+    private boolean mapMode;
     private String selectedCity = "";
     private int minPrice;
     private int maxPrice;
@@ -41,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
         searchInput = findViewById(R.id.searchInput);
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);
+        mapContent = findViewById(R.id.mapContent);
+        mapMarkers = new View[]{findViewById(R.id.mapMarker0), findViewById(R.id.mapMarker1),
+                findViewById(R.id.mapMarker2), findViewById(R.id.mapMarker3),
+                findViewById(R.id.mapMarker4), findViewById(R.id.mapMarker5)};
+        findViewById(R.id.listTab).setOnClickListener(v -> setMapMode(false));
+        findViewById(R.id.mapTab).setOnClickListener(v -> setMapMode(true));
+        for (int i = 0; i < mapMarkers.length; i++) {
+            final int orderNumber = i + 1;
+            mapMarkers[i].setOnClickListener(v -> Toast.makeText(this,
+                    "Демонстрационная точка заказа №" + orderNumber, Toast.LENGTH_SHORT).show());
+        }
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -49,11 +63,22 @@ public class MainActivity extends AppCompatActivity {
             @Override public void afterTextChanged(Editable s) { }
         });
         findViewById(R.id.filterButton).setOnClickListener(v -> showFilters());
+        applyFilters();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void setMapMode(boolean showMap) {
+        mapMode = showMap;
+        orderCards.setVisibility(showMap ? View.GONE : View.VISIBLE);
+        mapContent.setVisibility(showMap ? View.VISIBLE : View.GONE);
+        findViewById(R.id.listTab).setBackgroundResource(showMap
+                ? R.drawable.segmented_unselected : R.drawable.segmented_selected);
+        findViewById(R.id.mapTab).setBackgroundResource(showMap
+                ? R.drawable.segmented_selected : R.drawable.segmented_unselected);
     }
 
     private void showFilters() {
@@ -154,8 +179,10 @@ public class MainActivity extends AppCompatActivity {
                     && (maxPrice == 0 || price <= maxPrice)
                     && matchesWorkMode;
             card.setVisibility(matches ? View.VISIBLE : View.GONE);
+            if (i < mapMarkers.length) mapMarkers[i].setVisibility(matches ? View.VISIBLE : View.GONE);
             if (matches) visibleCount++;
         }
         emptyState.setVisibility(visibleCount == 0 ? View.VISIBLE : View.GONE);
+        emptyState.bringToFront();
     }
 }
