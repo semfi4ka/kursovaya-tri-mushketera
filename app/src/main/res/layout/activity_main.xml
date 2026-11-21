@@ -5,15 +5,139 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3F3F5"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+        android:id="@+id/orderFeed"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="18dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/segmented_selected"
+                    android:gravity="center"
+                    android:text="Список"
+                    android:textColor="#171717"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Карта"
+                    android:textColor="#77777F"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:clipToPadding="false"
+                android:fillViewport="false"
+                android:scrollbars="none">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="18dp">
+                    <TextView style="@style/CategoryTile" android:text="Что-то здесь\nнечисто" android:background="@drawable/category_tile_dark" />
+                    <TextView style="@style/CategoryTile" android:text="Личное-\nрабочее" android:background="@drawable/category_tile_mid" />
+                    <TextView style="@style/CategoryTile" android:text="Застали\nврасплох?" android:background="@drawable/category_tile_light" />
+                    <TextView style="@style/CategoryTile" android:text="Укажите\nпочту" android:background="@drawable/category_tile_mid" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/searchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_white"
+                    android:drawableStart="@android:drawable/ic_menu_search"
+                    android:drawablePadding="12dp"
+                    android:hint="Какой заказ ищете?"
+                    android:inputType="text"
+                    android:paddingHorizontal="16dp"
+                    android:singleLine="true"
+                    android:textColor="#171717"
+                    android:textColorHint="#85858D"
+                    android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/filterButton"
+                    android:layout_width="58dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/rounded_white"
+                    android:gravity="center"
+                    android:text="☷"
+                    android:textColor="#171717"
+                    android:textSize="30sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/orderCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingTop="18dp">
+                <include layout="@layout/item_order" />
+                <include layout="@layout/item_order_second" />
+                <include layout="@layout/item_order_third" />
+                <include layout="@layout/item_order_fourth" />
+                <include layout="@layout/item_order_fifth" />
+                <include layout="@layout/item_order_sixth" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:background="#FAFAFB"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView style="@style/BottomTabActive" android:text="Заказы" />
+        <TextView style="@style/BottomTab" android:text="Чаты" />
+        <TextView style="@style/BottomTab" android:text="7 Br" />
+        <TextView style="@style/BottomTab" android:text="Анкета" />
+        <TextView style="@style/BottomTab" android:text="Поддержка" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
