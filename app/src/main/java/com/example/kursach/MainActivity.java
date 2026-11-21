@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] CITIES = {"Любой город", "Минск", "Витебск", "Гомель", "Брест"};
     private EditText searchInput;
     private LinearLayout orderCards;
+    private View emptyState;
     private String selectedCity = "";
     private int minPrice;
     private int maxPrice;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         searchInput = findViewById(R.id.searchInput);
         orderCards = findViewById(R.id.orderCards);
+        emptyState = findViewById(R.id.emptyState);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private void applyFilters() {
         String query = searchInput.getText().toString().trim().toLowerCase(Locale.ROOT);
         Pattern pricePattern = Pattern.compile("\\d+");
+        int visibleCount = 0;
         for (int i = 0; i < orderCards.getChildCount(); i++) {
             View card = orderCards.getChildAt(i);
             String text = String.valueOf(card.getTag()).toLowerCase(Locale.ROOT);
@@ -151,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
                     && (maxPrice == 0 || price <= maxPrice)
                     && matchesWorkMode;
             card.setVisibility(matches ? View.VISIBLE : View.GONE);
+            if (matches) visibleCount++;
         }
+        emptyState.setVisibility(visibleCount == 0 ? View.VISIBLE : View.GONE);
     }
 }
