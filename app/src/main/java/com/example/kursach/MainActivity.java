@@ -1,6 +1,7 @@
 package com.example.kursach;
 
 import android.os.Bundle;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
@@ -51,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.listTab).setOnClickListener(v -> setMapMode(false));
         findViewById(R.id.mapTab).setOnClickListener(v -> setMapMode(true));
         for (int i = 0; i < mapMarkers.length; i++) {
-            final int orderNumber = i + 1;
-            mapMarkers[i].setOnClickListener(v -> Toast.makeText(this,
-                    "Демонстрационная точка заказа №" + orderNumber, Toast.LENGTH_SHORT).show());
+            final int orderIndex = i;
+            mapMarkers[i].setOnClickListener(v -> openOrderDetails(orderIndex));
+            View card = orderCards.getChildAt(i);
+            card.setOnClickListener(v -> openOrderDetails(orderIndex));
         }
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -79,6 +82,32 @@ public class MainActivity extends AppCompatActivity {
                 ? R.drawable.segmented_unselected : R.drawable.segmented_selected);
         findViewById(R.id.mapTab).setBackgroundResource(showMap
                 ? R.drawable.segmented_selected : R.drawable.segmented_unselected);
+    }
+
+    private void openOrderDetails(int orderIndex) {
+        View card = orderCards.getChildAt(orderIndex);
+        if (!(card instanceof LinearLayout) || card.getVisibility() != View.VISIBLE) return;
+        LinearLayout cardContent = (LinearLayout) card;
+        String date = ((TextView) cardContent.getChildAt(0)).getText().toString();
+        String title = ((TextView) cardContent.getChildAt(1)).getText().toString();
+        String description = ((TextView) cardContent.getChildAt(2)).getText().toString();
+        String tag = String.valueOf(card.getTag()).toLowerCase(Locale.ROOT);
+        String city = "Город не указан";
+        for (int i = 1; i < CITIES.length; i++) {
+            if (tag.contains(CITIES[i].toLowerCase(Locale.ROOT))) {
+                city = CITIES[i];
+                break;
+            }
+        }
+        String workMode = tag.contains("дистанц") || tag.contains("удалён")
+                || tag.contains("удаленно") ? "Дистанционно" : "На месте";
+        Intent intent = new Intent(this, OrderDetailsActivity.class);
+        intent.putExtra(OrderDetailsActivity.EXTRA_DATE, date);
+        intent.putExtra(OrderDetailsActivity.EXTRA_TITLE, title);
+        intent.putExtra(OrderDetailsActivity.EXTRA_DESCRIPTION, description);
+        intent.putExtra(OrderDetailsActivity.EXTRA_CITY, city);
+        intent.putExtra(OrderDetailsActivity.EXTRA_WORK_MODE, workMode);
+        startActivity(intent);
     }
 
     private void showFilters() {
