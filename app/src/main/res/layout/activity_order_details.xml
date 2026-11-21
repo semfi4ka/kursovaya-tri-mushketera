@@ -12,12 +12,16 @@
         android:background="#FFFFFF"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="8dp">
 
         <TextView
             android:id="@+id/backButton"
-            android:layout_width="48dp"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="Назад"
+            android:focusable="true"
             android:gravity="center"
             android:text="‹"
             android:textColor="#171717"
@@ -33,7 +37,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <View android:layout_width="48dp" android:layout_height="1dp" />
+        <View android:layout_width="64dp" android:layout_height="1dp" />
     </LinearLayout>
 
     <ScrollView
