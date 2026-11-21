@@ -68,10 +68,26 @@
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingHorizontal="18dp">
-                    <TextView style="@style/CategoryTile" android:text="Что-то здесь\nнечисто" android:background="@drawable/category_tile_dark" />
-                    <TextView style="@style/CategoryTile" android:text="Личное-\nрабочее" android:background="@drawable/category_tile_mid" />
-                    <TextView style="@style/CategoryTile" android:text="Застали\nврасплох?" android:background="@drawable/category_tile_light" />
-                    <TextView style="@style/CategoryTile" android:text="Укажите\nпочту" android:background="@drawable/category_tile_mid" />
+                    <FrameLayout style="@style/CategoryTileFrame">
+                        <ImageView android:id="@+id/categoryImage0" style="@style/CategoryTileImage" android:src="@drawable/category_uncanny" />
+                        <View style="@style/CategoryTileScrim" />
+                        <TextView style="@style/CategoryTileLabel" android:text="Что-то здесь\nнечисто" />
+                    </FrameLayout>
+                    <FrameLayout style="@style/CategoryTileFrame">
+                        <ImageView android:id="@+id/categoryImage1" style="@style/CategoryTileImage" android:src="@drawable/category_work_home" />
+                        <View style="@style/CategoryTileScrim" />
+                        <TextView style="@style/CategoryTileLabel" android:text="Личное-\nрабочее" />
+                    </FrameLayout>
+                    <FrameLayout style="@style/CategoryTileFrame">
+                        <ImageView android:id="@+id/categoryImage2" style="@style/CategoryTileImage" android:src="@drawable/category_surprise" />
+                        <View style="@style/CategoryTileScrim" />
+                        <TextView style="@style/CategoryTileLabel" android:text="Застали\nврасплох?" />
+                    </FrameLayout>
+                    <FrameLayout style="@style/CategoryTileFrame">
+                        <ImageView android:id="@+id/categoryImage3" style="@style/CategoryTileImage" android:src="@drawable/category_email" />
+                        <View style="@style/CategoryTileScrim" />
+                        <TextView style="@style/CategoryTileLabel" android:text="Укажите\nпочту" />
+                    </FrameLayout>
                 </LinearLayout>
             </HorizontalScrollView>
 

@@ -1,8 +1,24 @@
 <resources>
-    <style name="CategoryTile">
+    <style name="CategoryTileFrame">
         <item name="android:layout_width">112dp</item>
         <item name="android:layout_height">136dp</item>
         <item name="android:layout_marginEnd">10dp</item>
+    </style>
+    <style name="CategoryTileImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/category_tile_mask</item>
+        <item name="android:clipToOutline">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+    <style name="CategoryTileScrim">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/category_tile_scrim</item>
+    </style>
+    <style name="CategoryTileLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">bottom|start</item>
         <item name="android:padding">12dp</item>
         <item name="android:textColor">#FFFFFF</item>
