@@ -3,10 +3,18 @@ package com.example.kursach;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,32 +23,134 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String[] CITIES = {"Любой город", "Минск", "Витебск", "Гомель", "Брест"};
+    private EditText searchInput;
+    private LinearLayout orderCards;
+    private String selectedCity = "";
+    private int minPrice;
+    private int maxPrice;
+    private boolean remoteOnly;
+    private boolean onSiteOnly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        EditText searchInput = findViewById(R.id.searchInput);
-        LinearLayout orderCards = findViewById(R.id.orderCards);
+        searchInput = findViewById(R.id.searchInput);
+        orderCards = findViewById(R.id.orderCards);
         searchInput.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String query = s.toString().trim().toLowerCase();
-                for (int i = 0; i < orderCards.getChildCount(); i++) {
-                    View card = orderCards.getChildAt(i);
-                    String searchableText = String.valueOf(card.getTag()).toLowerCase();
-                    card.setVisibility(searchableText.contains(query) ? View.VISIBLE : View.GONE);
-                }
+                applyFilters();
             }
             @Override public void afterTextChanged(Editable s) { }
         });
-        findViewById(R.id.filterButton).setOnClickListener(v ->
-                Toast.makeText(this, "Фильтры будут добавлены следующим шагом", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.filterButton).setOnClickListener(v -> showFilters());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void showFilters() {
+        View content = LayoutInflater.from(this).inflate(R.layout.dialog_filters, null);
+        Spinner citySpinner = content.findViewById(R.id.citySpinner);
+        CheckBox remoteCheckBox = content.findViewById(R.id.remoteCheckBox);
+        CheckBox onSiteCheckBox = content.findViewById(R.id.onSiteCheckBox);
+        EditText minPriceInput = content.findViewById(R.id.minPriceInput);
+        EditText maxPriceInput = content.findViewById(R.id.maxPriceInput);
+
+        ArrayAdapter<String> citiesAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, CITIES);
+        citiesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        citySpinner.setAdapter(citiesAdapter);
+        for (int i = 0; i < CITIES.length; i++) {
+            if (CITIES[i].equalsIgnoreCase(selectedCity) || (selectedCity.isEmpty() && i == 0)) {
+                citySpinner.setSelection(i);
+                break;
+            }
+        }
+        remoteCheckBox.setChecked(remoteOnly);
+        onSiteCheckBox.setChecked(onSiteOnly);
+        if (minPrice > 0) minPriceInput.setText(String.valueOf(minPrice));
+        if (maxPrice > 0) maxPriceInput.setText(String.valueOf(maxPrice));
+
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Фильтры")
+                .setView(content)
+                .setPositiveButton("Применить", null)
+                .setNeutralButton("Сбросить", null)
+                .setNegativeButton("Отмена", null)
+                .create();
+        dialog.setOnShowListener(ignored -> {
+            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                String minText = minPriceInput.getText().toString().trim();
+                String maxText = maxPriceInput.getText().toString().trim();
+                int newMin = parsePrice(minText);
+                int newMax = parsePrice(maxText);
+                if (newMin < 0 || newMax < 0) {
+                    Toast.makeText(this, "Введите корректную цену", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (newMin > 0 && newMax > 0 && newMin > newMax) {
+                    Toast.makeText(this, "Цена «От» не может быть больше цены «До»", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                selectedCity = citySpinner.getSelectedItemPosition() == 0
+                        ? "" : CITIES[citySpinner.getSelectedItemPosition()].toLowerCase(Locale.ROOT);
+                remoteOnly = remoteCheckBox.isChecked();
+                onSiteOnly = onSiteCheckBox.isChecked();
+                minPrice = newMin;
+                maxPrice = newMax;
+                applyFilters();
+                dialog.dismiss();
+            });
+            dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL).setOnClickListener(v -> {
+                selectedCity = "";
+                minPrice = 0;
+                maxPrice = 0;
+                remoteOnly = false;
+                onSiteOnly = false;
+                citySpinner.setSelection(0);
+                remoteCheckBox.setChecked(false);
+                onSiteCheckBox.setChecked(false);
+                minPriceInput.setText("");
+                maxPriceInput.setText("");
+                applyFilters();
+                dialog.dismiss();
+            });
+        });
+        dialog.show();
+    }
+
+    private int parsePrice(String value) {
+        if (value.isEmpty()) return 0;
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException ignored) {
+            return -1;
+        }
+    }
+
+    private void applyFilters() {
+        String query = searchInput.getText().toString().trim().toLowerCase(Locale.ROOT);
+        Pattern pricePattern = Pattern.compile("\\d+");
+        for (int i = 0; i < orderCards.getChildCount(); i++) {
+            View card = orderCards.getChildAt(i);
+            String text = String.valueOf(card.getTag()).toLowerCase(Locale.ROOT);
+            Matcher matcher = pricePattern.matcher(text);
+            int price = matcher.find() ? Integer.parseInt(matcher.group()) : 0;
+            boolean isRemote = text.contains("дистанц") || text.contains("удалён") || text.contains("удаленно");
+            boolean matchesWorkMode = (!remoteOnly && !onSiteOnly)
+                    || (remoteOnly && isRemote) || (onSiteOnly && !isRemote);
+            boolean matches = text.contains(query)
+                    && (selectedCity.isEmpty() || text.contains(selectedCity))
+                    && (minPrice == 0 || price >= minPrice)
+                    && (maxPrice == 0 || price <= maxPrice)
+                    && matchesWorkMode;
+            card.setVisibility(matches ? View.VISIBLE : View.GONE);
+        }
     }
 }
