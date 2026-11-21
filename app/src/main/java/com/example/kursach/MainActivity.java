@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        setActiveNavigation(R.id.navOrders);
         searchInput = findViewById(R.id.searchInput);
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);
@@ -72,6 +73,17 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void setActiveNavigation(int activeItemId) {
+        int[] itemIds = {R.id.navOrders, R.id.navChats, R.id.navBalance, R.id.navProfile, R.id.navSupport};
+        for (int itemId : itemIds) {
+            LinearLayout item = findViewById(itemId);
+            boolean selected = itemId == activeItemId;
+            item.setSelected(selected);
+            item.getChildAt(0).setSelected(selected);
+            item.getChildAt(1).setSelected(selected);
+        }
     }
 
     private void setMapMode(boolean showMap) {

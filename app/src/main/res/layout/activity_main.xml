@@ -182,10 +182,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-        <TextView style="@style/BottomTabActive" android:text="Заказы" />
-        <TextView style="@style/BottomTab" android:text="Чаты" />
-        <TextView style="@style/BottomTab" android:text="7 Br" />
-        <TextView style="@style/BottomTab" android:text="Анкета" />
-        <TextView style="@style/BottomTab" android:text="Поддержка" />
+        <LinearLayout android:id="@+id/navOrders" style="@style/BottomNavigationItem" android:contentDescription="Заказы">
+            <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_orders" android:tint="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="Заказы" android:textColor="@color/nav_item_tint" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/navChats" style="@style/BottomNavigationItem" android:contentDescription="Чаты">
+            <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_chats" android:tint="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="Чаты" android:textColor="@color/nav_item_tint" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/navBalance" style="@style/BottomNavigationItem" android:contentDescription="Баланс">
+            <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_balance" android:tint="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="7 Br" android:textColor="@color/nav_item_tint" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/navProfile" style="@style/BottomNavigationItem" android:contentDescription="Анкета">
+            <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_profile" android:tint="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="Анкета" android:textColor="@color/nav_item_tint" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/navSupport" style="@style/BottomNavigationItem" android:contentDescription="Поддержка">
+            <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_support" android:tint="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="Поддержка" android:textColor="@color/nav_item_tint" />
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
