@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
         String title = ((TextView) cardContent.getChildAt(1)).getText().toString();
         String description = ((TextView) cardContent.getChildAt(2)).getText().toString();
         String tag = String.valueOf(card.getTag()).toLowerCase(Locale.ROOT);
+        Matcher priceMatcher = Pattern.compile("\\d+").matcher(tag);
+        String payout = priceMatcher.find() ? priceMatcher.group() + " Br" : "Не указана";
         String city = "Город не указан";
         for (int i = 1; i < CITIES.length; i++) {
             if (tag.contains(CITIES[i].toLowerCase(Locale.ROOT))) {
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(OrderDetailsActivity.EXTRA_TITLE, title);
         intent.putExtra(OrderDetailsActivity.EXTRA_DESCRIPTION, description);
         intent.putExtra(OrderDetailsActivity.EXTRA_CITY, city);
+        intent.putExtra(OrderDetailsActivity.EXTRA_PAYOUT, payout);
         intent.putExtra(OrderDetailsActivity.EXTRA_WORK_MODE, workMode);
         startActivity(intent);
     }

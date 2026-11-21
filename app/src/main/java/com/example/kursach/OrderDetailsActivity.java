@@ -12,6 +12,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_DESCRIPTION = "order_description";
     public static final String EXTRA_CITY = "order_city";
     public static final String EXTRA_WORK_MODE = "order_work_mode";
+    public static final String EXTRA_PAYOUT = "order_payout";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 getIntent().getStringExtra(EXTRA_DESCRIPTION));
         ((TextView) findViewById(R.id.orderCity)).setText(
                 getIntent().getStringExtra(EXTRA_CITY));
+        ((TextView) findViewById(R.id.orderPayout)).setText(
+                getIntent().getStringExtra(EXTRA_PAYOUT));
         ((TextView) findViewById(R.id.orderWorkMode)).setText(
                 getIntent().getStringExtra(EXTRA_WORK_MODE));
         findViewById(R.id.respondButton).setOnClickListener(view ->
