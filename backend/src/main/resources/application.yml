@@ -1,0 +1,12 @@
+server:
+  address: 0.0.0.0
+  port: 8080
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3307/parttime?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:parttime_app}
+    password: ${SPRING_DATASOURCE_PASSWORD:course-app}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  flyway:
+    enabled: true

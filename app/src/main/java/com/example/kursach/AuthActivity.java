@@ -22,6 +22,11 @@ import androidx.core.view.WindowInsetsCompat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class AuthActivity extends AppCompatActivity {
     private ScrollView authRoot;
@@ -45,6 +50,7 @@ public class AuthActivity extends AppCompatActivity {
     private EditText registerUsername;
     private EditText registerPassword;
     private Calendar selectedBirthDate;
+    private final ExecutorService apiExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +175,17 @@ public class AuthActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(password)) {
             loginPassword.setError("Введите пароль");
             loginPassword.requestFocus();
+            return;
         }
+        JSONObject payload = new JSONObject();
+        try {
+            payload.put("identifier", identifier);
+            payload.put("password", password);
+        } catch (JSONException exception) {
+            Toast.makeText(this, "Не удалось подготовить запрос", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        sendAuthRequest("/api/auth/login", payload, findViewById(R.id.loginButton));
     }
 
     private void openGuestMode() {
@@ -223,6 +239,45 @@ public class AuthActivity extends AppCompatActivity {
             registerPassword.requestFocus();
             return;
         }
+
+        JSONObject payload = new JSONObject();
+        try {
+            payload.put("surname", registerSurname.getText().toString().trim());
+            payload.put("firstName", registerFirstName.getText().toString().trim());
+            payload.put("patronymic", registerPatronymic.getText().toString().trim());
+            payload.put("birthDate", new SimpleDateFormat("yyyy-MM-dd", Locale.US)
+                    .format(selectedBirthDate.getTime()));
+            payload.put("username", username);
+            payload.put("phone", phone);
+            payload.put("email", email);
+            payload.put("password", password);
+        } catch (JSONException exception) {
+            Toast.makeText(this, "Не удалось подготовить запрос", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        sendAuthRequest("/api/auth/register", payload, findViewById(R.id.registerButton));
+    }
+
+    private void sendAuthRequest(String path, JSONObject payload, TextView submitButton) {
+        submitButton.setEnabled(false);
+        submitButton.setAlpha(0.6f);
+        apiExecutor.execute(() -> {
+            AuthApiClient.Result result = AuthApiClient.postJson(path, payload);
+            runOnUiThread(() -> {
+                if (isFinishing()) return;
+                submitButton.setEnabled(true);
+                submitButton.setAlpha(1f);
+                if (!result.successful) {
+                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("user_id", result.userId);
+                intent.putExtra("username", result.username);
+                startActivity(intent);
+                finish();
+            });
+        });
     }
 
     private boolean isValidEmail(String email) {
@@ -231,5 +286,11 @@ public class AuthActivity extends AppCompatActivity {
 
     private int dp(int value) {
         return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    protected void onDestroy() {
+        apiExecutor.shutdownNow();
+        super.onDestroy();
     }
 }
