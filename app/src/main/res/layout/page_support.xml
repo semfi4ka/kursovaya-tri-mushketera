@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F8"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:minHeight="56dp"
+        android:padding="12dp"
+        android:text="@string/support_title"
+        android:textColor="@color/nav_active"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DFDFE5" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout style="@style/SupportSection">
+                <TextView
+                    style="@style/SupportHeading"
+                    android:text="@string/support_title" />
+
+                <TextView
+                    android:id="@+id/supportHelp"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_chevron"
+                    android:text="@string/support_help" />
+
+                <TextView
+                    android:id="@+id/supportReference"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_external_link"
+                    android:text="@string/support_reference" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/SupportSection"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    style="@style/SupportHeading"
+                    android:text="@string/support_app" />
+
+                <TextView
+                    android:id="@+id/supportReview"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_external_link"
+                    android:text="@string/support_review" />
+
+                <TextView
+                    android:id="@+id/supportAbout"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_chevron"
+                    android:text="@string/support_about" />
+
+                <TextView
+                    android:id="@+id/supportClientApp"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_external_link"
+                    android:text="@string/support_client_app" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/SupportSection"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    style="@style/SupportHeading"
+                    android:text="@string/support_other" />
+
+                <TextView
+                    android:id="@+id/supportGame"
+                    style="@style/SupportRow"
+                    android:drawableEnd="@drawable/ic_support_chevron"
+                    android:text="@string/support_game" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

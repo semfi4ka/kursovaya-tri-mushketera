@@ -187,6 +187,17 @@
         </LinearLayout>
     </ScrollView>
 
+    <include
+        android:id="@+id/supportPage"
+        layout="@layout/page_support"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
@@ -214,9 +225,9 @@
             <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_profile" android:tint="@color/nav_item_tint" />
             <TextView style="@style/BottomNavigationLabel" android:text="Анкета" android:textColor="@color/nav_item_tint" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/navSupport" style="@style/BottomNavigationItem" android:contentDescription="Поддержка">
+        <LinearLayout android:id="@+id/navSupport" style="@style/BottomNavigationItem" android:contentDescription="@string/support_title">
             <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_support" android:tint="@color/nav_item_tint" />
-            <TextView style="@style/BottomNavigationLabel" android:text="Поддержка" android:textColor="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="@string/support_title" android:textColor="@color/nav_item_tint" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

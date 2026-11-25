@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Kursach</string>
+    <string name="support_title">Поддержка</string>
+    <string name="support_help">Помощь</string>
+    <string name="support_reference">Справка</string>
+    <string name="support_app">Приложение</string>
+    <string name="support_review">Написать отзыв</string>
+    <string name="support_about">О приложении</string>
+    <string name="support_client_app">Приложение для клиентов</string>
+    <string name="support_other">Другое</string>
+    <string name="support_game">Игра 25</string>
 </resources>

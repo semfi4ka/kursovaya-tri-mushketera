@@ -20,13 +20,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     private static final String[] CITIES = {"Любой город", "Минск", "Витебск", "Гомель", "Брест"};
+    private static final String SUPPORT_OPEN = "support_open";
     private EditText searchInput;
     private LinearLayout orderCards;
     private View emptyState;
@@ -38,14 +41,23 @@ public class MainActivity extends AppCompatActivity {
     private int maxPrice;
     private boolean remoteOnly;
     private boolean onSiteOnly;
+    private final OnBackPressedCallback supportBackCallback = new OnBackPressedCallback(false) {
+        @Override
+        public void handleOnBackPressed() {
+            showSupport(false);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        setActiveNavigation(R.id.navOrders);
         searchInput = findViewById(R.id.searchInput);
+        getOnBackPressedDispatcher().addCallback(this, supportBackCallback);
+        findViewById(R.id.navOrders).setOnClickListener(v -> showSupport(false));
+        findViewById(R.id.navSupport).setOnClickListener(v -> showSupport(true));
+        showSupport(savedInstanceState != null && savedInstanceState.getBoolean(SUPPORT_OPEN));
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);
         mapContent = findViewById(R.id.mapContent);
@@ -74,6 +86,24 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(SUPPORT_OPEN, supportBackCallback.isEnabled());
+    }
+
+    private void showSupport(boolean open) {
+        if (open && searchInput.hasFocus()) {
+            WindowCompat.getInsetsController(getWindow(), searchInput)
+                    .hide(WindowInsetsCompat.Type.ime());
+            searchInput.clearFocus();
+        }
+        findViewById(R.id.orderFeed).setVisibility(open ? View.GONE : View.VISIBLE);
+        findViewById(R.id.supportPage).setVisibility(open ? View.VISIBLE : View.GONE);
+        setActiveNavigation(open ? R.id.navSupport : R.id.navOrders);
+        supportBackCallback.setEnabled(open);
     }
 
     private void setActiveNavigation(int activeItemId) {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SupportSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/support_section_background</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:paddingBottom">22dp</item>
+    </style>
+
+    <style name="SupportRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:textColor">@color/nav_active</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="SupportHeading" parent="SupportRow">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>
