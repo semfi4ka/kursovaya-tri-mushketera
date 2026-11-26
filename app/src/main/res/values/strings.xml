@@ -13,4 +13,22 @@
     <string name="support_help_can_wait">Да, могу подождать</string>
     <string name="support_help_urgent">Нет, у меня срочный вопрос</string>
     <string name="support_help_chat">Перейти в чат поддержки</string>
+    <string name="about_back">Назад</string>
+    <string name="about_build_number">Номер сборки</string>
+    <string name="about_build_version">Версия сборки</string>
+    <string name="about_package_name">Имя пакета</string>
+    <string name="about_unknown">Не указано</string>
+    <string name="about_updates">Обновления</string>
+    <string name="about_channel">Канал сборки</string>
+    <string name="about_course_build">Учебный</string>
+    <string name="about_installation">Установка</string>
+    <string name="about_manual_install">Вручную</string>
+    <string name="about_copy">Копировать</string>
+    <string name="about_copy_details">Подработка\nНомер сборки: %1$s\nВерсия сборки: %2$s\nИмя пакета: %3$s</string>
+    <string name="about_copied">Данные сборки скопированы</string>
+    <string name="about_check_updates">Проверить наличие обновлений</string>
+    <string name="about_updates_unavailable">Проверка обновлений из приложения пока недоступна. Учебные сборки устанавливаются вручную.</string>
+    <string name="about_project_title">Подработка</string>
+    <string name="about_project_description">Учебная биржа для поиска разовых заказов и подработки. Заказы можно искать по городу, цене и формату работы.</string>
+    <string name="about_team">Команда «Три мушкетёра»</string>
 </resources>

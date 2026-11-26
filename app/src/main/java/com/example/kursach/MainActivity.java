@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.navSupport).setOnClickListener(v -> showSupport(true));
         findViewById(R.id.supportHelp).setOnClickListener(v ->
                 new HelpSheet().showNow(getSupportFragmentManager(), "support_help"));
+        findViewById(R.id.supportAbout).setOnClickListener(v ->
+                startActivity(new Intent(this, AboutActivity.class)));
         showSupport(savedInstanceState != null && savedInstanceState.getBoolean(SUPPORT_OPEN));
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);

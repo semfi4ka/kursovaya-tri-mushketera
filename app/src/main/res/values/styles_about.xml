@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AboutInfoLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:textColor">@color/nav_active</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="AboutInfoValue" parent="AboutInfoLabel">
+        <item name="android:gravity">end</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AboutDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:background">#DBDBE4</item>
+    </style>
+
+    <style name="AboutAction">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/nav_active</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
