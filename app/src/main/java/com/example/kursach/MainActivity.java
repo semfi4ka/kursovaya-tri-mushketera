@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, supportBackCallback);
         findViewById(R.id.navOrders).setOnClickListener(v -> showSupport(false));
         findViewById(R.id.navSupport).setOnClickListener(v -> showSupport(true));
+        findViewById(R.id.supportHelp).setOnClickListener(v ->
+                new HelpSheet().showNow(getSupportFragmentManager(), "support_help"));
         showSupport(savedInstanceState != null && savedInstanceState.getBoolean(SUPPORT_OPEN));
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);

@@ -43,6 +43,7 @@
                 <TextView
                     android:id="@+id/supportHelp"
                     style="@style/SupportRow"
+                    android:background="?attr/selectableItemBackground"
                     android:drawableEnd="@drawable/ic_support_chevron"
                     android:text="@string/support_help" />
 

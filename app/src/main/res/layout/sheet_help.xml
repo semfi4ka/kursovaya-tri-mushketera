@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="42dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/help_sheet_handle" />
+
+        <TextView
+            android:id="@+id/helpQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:accessibilityHeading="true"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/support_help_question"
+            android:textColor="@color/nav_active"
+            android:textSize="25sp" />
+
+        <RadioGroup
+            android:id="@+id/helpAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/helpCanWait"
+                style="@style/SupportHelpAnswer"
+                android:text="@string/support_help_can_wait" />
+
+            <RadioButton
+                android:id="@+id/helpUrgent"
+                style="@style/SupportHelpAnswer"
+                android:text="@string/support_help_urgent" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="#E7E7EE" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/helpChatButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/auth_button_background"
+            android:enabled="false"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="60dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"
+            android:text="@string/support_help_chat"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -9,4 +9,8 @@
     <string name="support_client_app">Приложение для клиентов</string>
     <string name="support_other">Другое</string>
     <string name="support_game">Игра 25</string>
+    <string name="support_help_question">Вы готовы подождать ответ оператора 25 минут?</string>
+    <string name="support_help_can_wait">Да, могу подождать</string>
+    <string name="support_help_urgent">Нет, у меня срочный вопрос</string>
+    <string name="support_help_chat">Перейти в чат поддержки</string>
 </resources>
