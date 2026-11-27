@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="chats_title">Чаты</string>
+    <string name="chats_open">Открытые</string>
+    <string name="chats_in_progress">В работе</string>
+    <string name="chats_completed">Выполненные</string>
+    <string name="chats_archive">Архив</string>
+    <string name="chats_first_initial">М</string>
+    <string name="chats_first_name">Маша</string>
+    <string name="chats_first_date">27 ноя</string>
+    <string name="chats_first_order">Иллюстрации для игры · Витебск</string>
+    <string name="chats_first_preview">Можно посмотреть ваши примеры?</string>
+    <string name="chats_first_status">Клиент увидел отклик</string>
+    <string name="chats_second_initial">И</string>
+    <string name="chats_second_name">Игорь</string>
+    <string name="chats_second_order">Семейная фотосессия · Брест</string>
+</resources>

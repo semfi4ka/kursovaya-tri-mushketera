@@ -188,6 +188,17 @@
     </ScrollView>
 
     <include
+        android:id="@+id/chatsPage"
+        layout="@layout/page_chats"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
         android:id="@+id/supportPage"
         layout="@layout/page_support"
         android:layout_width="0dp"
@@ -213,9 +224,9 @@
             <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_orders" android:tint="@color/nav_item_tint" />
             <TextView style="@style/BottomNavigationLabel" android:text="Заказы" android:textColor="@color/nav_item_tint" />
         </LinearLayout>
-        <LinearLayout android:id="@+id/navChats" style="@style/BottomNavigationItem" android:contentDescription="Чаты">
+        <LinearLayout android:id="@+id/navChats" style="@style/BottomNavigationItem" android:contentDescription="@string/chats_title">
             <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_chats" android:tint="@color/nav_item_tint" />
-            <TextView style="@style/BottomNavigationLabel" android:text="Чаты" android:textColor="@color/nav_item_tint" />
+            <TextView style="@style/BottomNavigationLabel" android:text="@string/chats_title" android:textColor="@color/nav_item_tint" />
         </LinearLayout>
         <LinearLayout android:id="@+id/navBalance" style="@style/BottomNavigationItem" android:contentDescription="Баланс">
             <ImageView style="@style/BottomNavigationIcon" android:src="@drawable/ic_nav_balance" android:tint="@color/nav_item_tint" />

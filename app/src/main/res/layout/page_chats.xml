@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F3F3F8"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:accessibilityHeading="true"
+            android:gravity="center"
+            android:minHeight="56dp"
+            android:paddingHorizontal="56dp"
+            android:paddingVertical="12dp"
+            android:text="@string/chats_title"
+            android:textColor="@color/nav_active"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_chats_check" />
+    </FrameLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                style="@style/ChatsTab"
+                android:background="@drawable/segmented_selected"
+                android:backgroundTint="#ECEEF9"
+                android:text="@string/chats_open"
+                android:textColor="#34458F"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/ChatsTab"
+                android:text="@string/chats_in_progress" />
+
+            <TextView
+                style="@style/ChatsTab"
+                android:text="@string/chats_completed" />
+
+            <TextView
+                style="@style/ChatsTab"
+                android:text="@string/chats_archive" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp">
+
+            <LinearLayout style="@style/ChatsCard">
+
+                <TextView
+                    style="@style/ChatsAvatar"
+                    android:text="@string/chats_first_initial" />
+
+                <LinearLayout style="@style/ChatsCardInfo">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/ChatsName"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:text="@string/chats_first_name" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/chats_first_date"
+                            android:textColor="@color/nav_inactive"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/ChatsLine"
+                        android:text="@string/chats_first_order" />
+
+                    <TextView
+                        style="@style/ChatsLine"
+                        android:text="@string/chats_first_preview"
+                        android:textColor="@color/nav_inactive" />
+
+                    <TextView
+                        style="@style/ChatsLine"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/chats_first_status"
+                        android:textColor="#207452"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ChatsCard"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    style="@style/ChatsAvatar"
+                    android:backgroundTint="#DDE4FC"
+                    android:text="@string/chats_second_initial"
+                    android:textColor="#34458F" />
+
+                <LinearLayout style="@style/ChatsCardInfo">
+
+                    <TextView
+                        style="@style/ChatsName"
+                        android:text="@string/chats_second_name" />
+
+                    <TextView
+                        style="@style/ChatsLine"
+                        android:text="@string/chats_second_order" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

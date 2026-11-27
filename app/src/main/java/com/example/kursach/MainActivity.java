@@ -29,7 +29,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     private static final String[] CITIES = {"Любой город", "Минск", "Витебск", "Гомель", "Брест"};
-    private static final String SUPPORT_OPEN = "support_open";
+    private static final String ACTIVE_PAGE = "active_page";
     private EditText searchInput;
     private LinearLayout orderCards;
     private View emptyState;
@@ -41,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private int maxPrice;
     private boolean remoteOnly;
     private boolean onSiteOnly;
-    private final OnBackPressedCallback supportBackCallback = new OnBackPressedCallback(false) {
+    private int activePage;
+    private final OnBackPressedCallback pageBackCallback = new OnBackPressedCallback(false) {
         @Override
         public void handleOnBackPressed() {
-            showSupport(false);
+            showPage(R.id.navOrders);
         }
     };
 
@@ -54,14 +55,16 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         searchInput = findViewById(R.id.searchInput);
-        getOnBackPressedDispatcher().addCallback(this, supportBackCallback);
-        findViewById(R.id.navOrders).setOnClickListener(v -> showSupport(false));
-        findViewById(R.id.navSupport).setOnClickListener(v -> showSupport(true));
+        getOnBackPressedDispatcher().addCallback(this, pageBackCallback);
+        findViewById(R.id.navOrders).setOnClickListener(v -> showPage(R.id.navOrders));
+        findViewById(R.id.navChats).setOnClickListener(v -> showPage(R.id.navChats));
+        findViewById(R.id.navSupport).setOnClickListener(v -> showPage(R.id.navSupport));
         findViewById(R.id.supportHelp).setOnClickListener(v ->
                 new HelpSheet().showNow(getSupportFragmentManager(), "support_help"));
         findViewById(R.id.supportAbout).setOnClickListener(v ->
                 startActivity(new Intent(this, AboutActivity.class)));
-        showSupport(savedInstanceState != null && savedInstanceState.getBoolean(SUPPORT_OPEN));
+        showPage(savedInstanceState == null ? R.id.navOrders
+                : savedInstanceState.getInt(ACTIVE_PAGE, R.id.navOrders));
         orderCards = findViewById(R.id.orderCards);
         emptyState = findViewById(R.id.emptyState);
         mapContent = findViewById(R.id.mapContent);
@@ -95,19 +98,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(SUPPORT_OPEN, supportBackCallback.isEnabled());
+        outState.putInt(ACTIVE_PAGE, activePage);
     }
 
-    private void showSupport(boolean open) {
-        if (open && searchInput.hasFocus()) {
+    private void showPage(int pageId) {
+        boolean showOrders = pageId == R.id.navOrders;
+        if (!showOrders && searchInput.hasFocus()) {
             WindowCompat.getInsetsController(getWindow(), searchInput)
                     .hide(WindowInsetsCompat.Type.ime());
             searchInput.clearFocus();
         }
-        findViewById(R.id.orderFeed).setVisibility(open ? View.GONE : View.VISIBLE);
-        findViewById(R.id.supportPage).setVisibility(open ? View.VISIBLE : View.GONE);
-        setActiveNavigation(open ? R.id.navSupport : R.id.navOrders);
-        supportBackCallback.setEnabled(open);
+        findViewById(R.id.orderFeed).setVisibility(showOrders ? View.VISIBLE : View.GONE);
+        findViewById(R.id.chatsPage).setVisibility(pageId == R.id.navChats ? View.VISIBLE : View.GONE);
+        findViewById(R.id.supportPage).setVisibility(pageId == R.id.navSupport ? View.VISIBLE : View.GONE);
+        activePage = pageId;
+        setActiveNavigation(pageId);
+        pageBackCallback.setEnabled(!showOrders);
     }
 
     private void setActiveNavigation(int activeItemId) {
